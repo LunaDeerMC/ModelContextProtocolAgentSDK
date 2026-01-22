@@ -88,8 +88,12 @@ public class SchemaGenerator {
             Class<?> paramType, Param paramAnnotation) {
         Map<String, Object> schema;
 
+        // Check if the parameter type is an enum
+        if (paramType.isEnum()) {
+            schema = generateEnumSchema(paramType, paramAnnotation.enumValues());
+        }
         // Check if the parameter type is a complex type (Record, POJO, etc.)
-        if (isRecordType(paramType) ||
+        else if (isRecordType(paramType) ||
             (!paramType.isPrimitive() &&
              !paramType.equals(String.class) &&
              !Number.class.isAssignableFrom(paramType) &&
@@ -181,6 +185,9 @@ public class SchemaGenerator {
             schema.put("type", "array");
             Map<String, Object> itemsSchema = generateTypeSchema(clazz.getComponentType());
             schema.put("items", itemsSchema);
+        } else if (clazz.isEnum()) {
+            // Enum type - generate enum schema with all values
+            return generateEnumSchema(clazz, new String[0]);
         } else if (isRecordType(clazz)) {
             // Record type - recursively parse fields
             return generateRecordSchema(clazz);
@@ -231,6 +238,47 @@ public class SchemaGenerator {
             // Other parameterized types - treat as object
             schema.put("type", "object");
             schema.put("description", "Instance of " + rawType.getSimpleName());
+        }
+
+        return schema;
+    }
+
+    /**
+     * Generates a JSON Schema for an enum type.
+     *
+     * @param enumClass the enum class
+     * @param enumValues the allowed enum values (if empty, all enum values are used)
+     * @return JSON Schema as a map
+     */
+    private static Map<String, Object> generateEnumSchema(Class<?> enumClass, String[] enumValues) {
+        Map<String, Object> schema = new LinkedHashMap<>();
+        schema.put("type", "string");
+        schema.put("description", "Enum: " + enumClass.getSimpleName());
+
+        // Get all enum constants
+        Object[] enumConstants = enumClass.getEnumConstants();
+        List<String> allowedValues = new ArrayList<>();
+
+        if (enumValues != null && enumValues.length > 0) {
+            // Use specified enum values
+            for (String value : enumValues) {
+                // Validate that the value exists in the enum
+                try {
+                    Enum.valueOf((Class<Enum>) enumClass, value);
+                    allowedValues.add(value);
+                } catch (IllegalArgumentException e) {
+                    // Skip invalid enum values
+                }
+            }
+        } else {
+            // Use all enum constants
+            for (Object constant : enumConstants) {
+                allowedValues.add(constant.toString());
+            }
+        }
+
+        if (!allowedValues.isEmpty()) {
+            schema.put("enum", allowedValues);
         }
 
         return schema;
@@ -412,6 +460,12 @@ public class SchemaGenerator {
                 schema.put("maxItems", resultAnnotation.maxLength());
             }
         }
+
+        // Add enum values constraint (for string type with enum)
+        if ("string".equals(type) && resultAnnotation.enumValues().length > 0) {
+            List<String> enumValues = new ArrayList<>(Arrays.asList(resultAnnotation.enumValues()));
+            schema.put("enum", enumValues);
+        }
     }
 
     /**
@@ -459,6 +513,12 @@ public class SchemaGenerator {
             if (paramAnnotation.maxLength() < Integer.MAX_VALUE) {
                 schema.put("maxItems", paramAnnotation.maxLength());
             }
+        }
+
+        // Add enum values constraint (for string type with enum)
+        if ("string".equals(type) && paramAnnotation.enumValues().length > 0) {
+            List<String> enumValues = new ArrayList<>(Arrays.asList(paramAnnotation.enumValues()));
+            schema.put("enum", enumValues);
         }
 
         // Add default value

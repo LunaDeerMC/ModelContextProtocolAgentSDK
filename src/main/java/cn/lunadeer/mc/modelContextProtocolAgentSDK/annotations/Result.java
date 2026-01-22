@@ -98,4 +98,13 @@ public @interface Result {
      * @return the maximum length, defaults to Integer.MAX_VALUE
      */
     int maxLength() default Integer.MAX_VALUE;
+
+    /**
+     * Enum values for enum type fields.
+     * When specified, the field is restricted to these enum constant names.
+     * Only applicable to enum types.
+     *
+     * @return the allowed enum values as strings
+     */
+    String[] enumValues() default {};
 }
