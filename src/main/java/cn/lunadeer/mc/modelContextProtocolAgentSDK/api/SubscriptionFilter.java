@@ -48,7 +48,7 @@ public class SubscriptionFilter {
     /**
      * Gets a boolean criterion by key.
      *
-     * @param key the criterion key
+     * @param key          the criterion key
      * @param defaultValue default value if not present
      * @return the boolean criterion value
      */
@@ -112,7 +112,7 @@ public class SubscriptionFilter {
         /**
          * Adds a criterion.
          *
-         * @param key the criterion key
+         * @param key   the criterion key
          * @param value the criterion value
          * @return this builder
          */

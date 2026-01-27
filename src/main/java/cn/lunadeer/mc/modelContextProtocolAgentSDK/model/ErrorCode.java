@@ -6,24 +6,24 @@ package cn.lunadeer.mc.modelContextProtocolAgentSDK.model;
  * These error codes provide a standardized way to communicate errors
  * between the agent and clients.
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public enum ErrorCode {
-    
+
     // General errors (1xxx)
     INTERNAL_ERROR("1000", "An internal error occurred."),
     INVALID_REQUEST("1001", "The request is invalid or malformed."),
     CAPABILITY_NOT_FOUND("1002", "The requested capability was not found."),
     PROVIDER_NOT_FOUND("1003", "The specified provider does not exist."),
-    
+
     // Validation errors (2xxx)
     VALIDATION_FAILED("2000", "Validation failed."),
     PARAMETER_REQUIRED("2001", "Parameter required."),
     PARAMETER_INVALID("2002", "Parameter invalid."),
     SCHEMA_VALIDATION_FAILED("2003", "Schema validation failed."),
-    
+
     // Security errors (3xxx)
     PERMISSION_DENIED("3000", "Permission denied."),
     RATE_LIMIT_EXCEEDED("3001", "Rate limit exceeded."),
@@ -47,6 +47,7 @@ public enum ErrorCode {
 
     private final String errorCode;
     private final String errorMessage;
+
     public String getErrorCode() {
         return errorCode;
     }

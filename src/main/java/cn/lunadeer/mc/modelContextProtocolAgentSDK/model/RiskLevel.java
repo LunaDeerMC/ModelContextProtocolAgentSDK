@@ -11,12 +11,12 @@ package cn.lunadeer.mc.modelContextProtocolAgentSDK.model;
  *   <li>Rate limiting</li>
  * </ul>
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public enum RiskLevel {
-    
+
     /**
      * Low risk - minimal impact on server state.
      * <p>
@@ -24,7 +24,7 @@ public enum RiskLevel {
      * </p>
      */
     LOW,
-    
+
     /**
      * Medium risk - moderate impact on server state.
      * <p>
@@ -32,7 +32,7 @@ public enum RiskLevel {
      * </p>
      */
     MEDIUM,
-    
+
     /**
      * High risk - significant impact on server state.
      * <p>
@@ -41,7 +41,7 @@ public enum RiskLevel {
      * </p>
      */
     HIGH,
-    
+
     /**
      * Critical risk - severe impact on server state.
      * <p>

@@ -5,12 +5,12 @@ package cn.lunadeer.mc.modelContextProtocolAgentSDK.model;
  * <p>
  * Each type has different characteristics and safety requirements.
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public enum CapabilityType {
-    
+
     /**
      * Context capability - read-only query.
      * <p>
@@ -19,7 +19,7 @@ public enum CapabilityType {
      * </p>
      */
     CONTEXT,
-    
+
     /**
      * Action capability - write operation.
      * <p>
@@ -28,7 +28,7 @@ public enum CapabilityType {
      * </p>
      */
     ACTION,
-    
+
     /**
      * Event capability - event subscription.
      * <p>

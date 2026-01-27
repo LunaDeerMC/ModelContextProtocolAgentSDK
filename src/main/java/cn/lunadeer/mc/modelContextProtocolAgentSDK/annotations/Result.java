@@ -26,11 +26,11 @@ import java.lang.annotation.*;
  * </p>
  * <p>
  * <strong>Note:</strong> You can use either @Param or @Result on Record components.
+ *
+ * @author ZhangYuheng
  * @Param is for input types, @Result is for output types. Both support the same
  * validation constraints and can be used interchangeably.
  * </p>
- *
- * @author ZhangYuheng
  * @since 1.0.0
  */
 @Target({ElementType.RECORD_COMPONENT, ElementType.FIELD})

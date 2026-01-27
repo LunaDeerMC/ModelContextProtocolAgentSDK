@@ -12,12 +12,12 @@ import java.util.*;
  * This class helps automatically generate parameter and return schemas
  * for MCP capabilities based on their annotated methods.
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public class SchemaGenerator {
-    
+
     /**
      * Generates a JSON Schema for method parameters.
      *
@@ -76,11 +76,11 @@ public class SchemaGenerator {
 
         return schema;
     }
-    
+
     /**
      * Generates a JSON Schema for a single parameter.
      *
-     * @param paramType the parameter type
+     * @param paramType       the parameter type
      * @param paramAnnotation the @Param annotation
      * @return JSON Schema as a map
      */
@@ -94,12 +94,12 @@ public class SchemaGenerator {
         }
         // Check if the parameter type is a complex type (Record, POJO, etc.)
         else if (isRecordType(paramType) ||
-            (!paramType.isPrimitive() &&
-             !paramType.equals(String.class) &&
-             !Number.class.isAssignableFrom(paramType) &&
-             !paramType.equals(Boolean.class) &&
-             !paramType.isArray() &&
-             !Collection.class.isAssignableFrom(paramType))) {
+                (!paramType.isPrimitive() &&
+                        !paramType.equals(String.class) &&
+                        !Number.class.isAssignableFrom(paramType) &&
+                        !paramType.equals(Boolean.class) &&
+                        !paramType.isArray() &&
+                        !Collection.class.isAssignableFrom(paramType))) {
             // Complex object type - use full schema generation
             schema = generateTypeSchema(paramType);
         } else {
@@ -137,7 +137,7 @@ public class SchemaGenerator {
 
         return schema;
     }
-    
+
     /**
      * Generates a JSON Schema for method return type.
      *
@@ -171,12 +171,12 @@ public class SchemaGenerator {
         } else if (clazz == String.class) {
             schema.put("type", "string");
         } else if (clazz == int.class || clazz == Integer.class ||
-                   clazz == long.class || clazz == Long.class ||
-                   clazz == short.class || clazz == Short.class ||
-                   clazz == byte.class || clazz == Byte.class) {
+                clazz == long.class || clazz == Long.class ||
+                clazz == short.class || clazz == Short.class ||
+                clazz == byte.class || clazz == Byte.class) {
             schema.put("type", "integer");
         } else if (clazz == float.class || clazz == Float.class ||
-                   clazz == double.class || clazz == Double.class) {
+                clazz == double.class || clazz == Double.class) {
             schema.put("type", "number");
         } else if (clazz == boolean.class || clazz == Boolean.class) {
             schema.put("type", "boolean");
@@ -246,7 +246,7 @@ public class SchemaGenerator {
     /**
      * Generates a JSON Schema for an enum type.
      *
-     * @param enumClass the enum class
+     * @param enumClass  the enum class
      * @param enumValues the allowed enum values (if empty, all enum values are used)
      * @return JSON Schema as a map
      */
@@ -417,7 +417,7 @@ public class SchemaGenerator {
     /**
      * Applies @Result annotation constraints to a schema.
      *
-     * @param schema the schema to modify
+     * @param schema           the schema to modify
      * @param resultAnnotation the annotation to apply
      */
     private static void applyResultAnnotations(Map<String, Object> schema, Result resultAnnotation) {
@@ -471,7 +471,7 @@ public class SchemaGenerator {
     /**
      * Applies @Param annotation constraints to a schema.
      *
-     * @param schema the schema to modify
+     * @param schema          the schema to modify
      * @param paramAnnotation the annotation to apply
      */
     private static void applyParamAnnotations(Map<String, Object> schema, Param paramAnnotation) {
@@ -536,10 +536,10 @@ public class SchemaGenerator {
     private static boolean isRecordType(Class<?> clazz) {
         return clazz.isRecord();
     }
-    
+
     /**
      * Maps Java type to JSON Schema type.
-     * 
+     *
      * @param javaType the Java class
      * @return JSON Schema type string
      */
@@ -547,12 +547,12 @@ public class SchemaGenerator {
         if (javaType == String.class) {
             return "string";
         } else if (javaType == int.class || javaType == Integer.class ||
-                   javaType == long.class || javaType == Long.class ||
-                   javaType == short.class || javaType == Short.class ||
-                   javaType == byte.class || javaType == Byte.class) {
+                javaType == long.class || javaType == Long.class ||
+                javaType == short.class || javaType == Short.class ||
+                javaType == byte.class || javaType == Byte.class) {
             return "integer";
         } else if (javaType == float.class || javaType == Float.class ||
-                   javaType == double.class || javaType == Double.class) {
+                javaType == double.class || javaType == Double.class) {
             return "number";
         } else if (javaType == boolean.class || javaType == Boolean.class) {
             return "boolean";
@@ -562,10 +562,10 @@ public class SchemaGenerator {
             return "object";
         }
     }
-    
+
     /**
      * Parses a default value string to appropriate type.
-     * 
+     *
      * @param defaultValue the default value string
      * @return parsed value
      */
@@ -573,7 +573,7 @@ public class SchemaGenerator {
         if ("true".equalsIgnoreCase(defaultValue) || "false".equalsIgnoreCase(defaultValue)) {
             return Boolean.parseBoolean(defaultValue);
         }
-        
+
         try {
             if (defaultValue.contains(".")) {
                 return Double.parseDouble(defaultValue);

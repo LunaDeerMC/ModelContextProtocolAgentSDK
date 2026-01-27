@@ -12,17 +12,17 @@ import cn.lunadeer.mc.modelContextProtocolAgentSDK.annotations.Param;
  * @since 1.0.0
  */
 public record PaginationParam(
-    @Param(description = "Page number (1-based)", defaultValue = "1", min = 1)
-    Integer page,
+        @Param(description = "Page number (1-based)", defaultValue = "1", min = 1)
+        Integer page,
 
-    @Param(description = "Number of items per page", defaultValue = "20", min = 1, max = 100)
-    Integer pageSize,
+        @Param(description = "Number of items per page", defaultValue = "20", min = 1, max = 100)
+        Integer pageSize,
 
-    @Param(description = "Field to sort by")
-    String sortBy,
+        @Param(description = "Field to sort by")
+        String sortBy,
 
-    @Param(description = "Sort order (asc or desc)", defaultValue = "asc")
-    String sortOrder
+        @Param(description = "Sort order (asc or desc)", defaultValue = "asc")
+        String sortOrder
 ) {
     /**
      * Gets the offset for database queries (0-based).
@@ -47,34 +47,34 @@ public record PaginationParam(
     /**
      * Creates a new pagination parameter with specified values.
      *
-     * @param page the page number (1-based)
+     * @param page     the page number (1-based)
      * @param pageSize the number of items per page
      * @return pagination parameter
      */
     public static PaginationParam create(Integer page, Integer pageSize) {
         return new PaginationParam(
-            page != null ? page : 1,
-            pageSize != null ? pageSize : 20,
-            null,
-            "asc"
+                page != null ? page : 1,
+                pageSize != null ? pageSize : 20,
+                null,
+                "asc"
         );
     }
 
     /**
      * Creates a new pagination parameter with full specification.
      *
-     * @param page the page number (1-based)
-     * @param pageSize the number of items per page
-     * @param sortBy the field to sort by
+     * @param page      the page number (1-based)
+     * @param pageSize  the number of items per page
+     * @param sortBy    the field to sort by
      * @param sortOrder the sort order ("asc" or "desc")
      * @return pagination parameter
      */
     public static PaginationParam create(Integer page, Integer pageSize, String sortBy, String sortOrder) {
         return new PaginationParam(
-            page != null ? page : 1,
-            pageSize != null ? pageSize : 20,
-            sortBy,
-            sortOrder != null ? sortOrder : "asc"
+                page != null ? page : 1,
+                pageSize != null ? pageSize : 20,
+                sortBy,
+                sortOrder != null ? sortOrder : "asc"
         );
     }
 }

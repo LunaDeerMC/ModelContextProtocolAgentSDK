@@ -11,47 +11,47 @@ package cn.lunadeer.mc.modelContextProtocolAgentSDK.exception;
  *   <li>Schema validation failure</li>
  * </ul>
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public class McpValidationException extends McpException {
-    
+
     /**
      * Creates a new validation exception.
-     * 
+     *
      * @param message the error message
      */
     public McpValidationException(String message) {
         super(message);
     }
-    
+
     /**
      * Creates a new validation exception with a cause.
-     * 
+     *
      * @param message the error message
-     * @param cause the underlying cause
+     * @param cause   the underlying cause
      */
     public McpValidationException(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
     /**
      * Creates a new validation exception with an error code.
-     * 
+     *
      * @param errorCode the error code
-     * @param message the error message
+     * @param message   the error message
      */
     public McpValidationException(String errorCode, String message) {
         super(errorCode, message);
     }
-    
+
     /**
      * Creates a new validation exception with an error code and cause.
-     * 
+     *
      * @param errorCode the error code
-     * @param message the error message
-     * @param cause the underlying cause
+     * @param message   the error message
+     * @param cause     the underlying cause
      */
     public McpValidationException(String errorCode, String message, Throwable cause) {
         super(errorCode, message, cause);

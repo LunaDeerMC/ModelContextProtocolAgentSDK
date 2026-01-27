@@ -27,7 +27,7 @@ public interface McpEventEmitter {
     /**
      * Emits an event to all subscribers.
      *
-     * @param eventId the event identifier
+     * @param eventId   the event identifier
      * @param eventData the event payload data
      */
     void emit(String eventId, Object eventData);
@@ -39,17 +39,17 @@ public interface McpEventEmitter {
      * whether to send the event to that particular subscriber.
      * </p>
      *
-     * @param eventId the event identifier
+     * @param eventId   the event identifier
      * @param eventData the event payload data
-     * @param filter predicate to filter subscribers
+     * @param filter    predicate to filter subscribers
      */
     void emit(String eventId, Object eventData, Predicate<Subscription> filter);
 
     /**
      * Subscribes to an event.
      *
-     * @param eventId the event identifier
-     * @param filter subscription filter
+     * @param eventId      the event identifier
+     * @param filter       subscription filter
      * @param subscriberId the subscriber ID
      * @return the subscription object
      */

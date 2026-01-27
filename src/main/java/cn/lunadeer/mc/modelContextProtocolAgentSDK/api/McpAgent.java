@@ -17,43 +17,43 @@ package cn.lunadeer.mc.modelContextProtocolAgentSDK.api;
  * }
  * }</pre>
  * </p>
- * 
+ *
  * @author ZhangYuheng
  * @since 1.0.0
  */
 public interface McpAgent {
-    
+
     /**
      * Gets the provider registry.
-     * 
+     *
      * @return the provider registry instance
      */
     McpProviderRegistry getProviderRegistry();
-    
+
     /**
      * Gets the event emitter.
-     * 
+     *
      * @return the event emitter instance
      */
     McpEventEmitter getEventEmitter();
-    
+
     /**
      * Gets the agent version.
-     * 
+     *
      * @return the version string
      */
     String getVersion();
-    
+
     /**
      * Checks if the agent is connected to the gateway.
-     * 
+     *
      * @return true if connected
      */
     boolean isConnected();
-    
+
     /**
      * Gets the agent's unique identifier.
-     * 
+     *
      * @return the agent ID
      */
     String getAgentId();

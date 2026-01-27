@@ -1,4 +1,4 @@
-package cn.lunadeer.mc.modelContextProtocolAgentSDK.model.dto;
+package cn.lunadeer.mc.modelContextProtocolAgentSDK.model.dto.world;
 
 /**
  * Enum representing weather types in Minecraft.
