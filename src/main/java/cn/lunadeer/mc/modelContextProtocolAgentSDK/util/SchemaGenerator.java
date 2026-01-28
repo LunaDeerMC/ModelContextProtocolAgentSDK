@@ -57,9 +57,9 @@ public class SchemaGenerator {
                         required.addAll(recordRequired);
                     }
                 } else {
-                    // Normal parameter
-                    Map<String, Object> paramSchema = generateInputPropertySchema(
-                            paramType, paramAnnotation);
+                    // Normal parameter - use parameterized type to preserve generic information
+                    Type paramTypeGeneric = parameter.getParameterizedType();
+                    Map<String, Object> paramSchema = generateTypeSchema(paramTypeGeneric);
                     properties.put(paramName, paramSchema);
 
                     if (paramAnnotation.required()) {
@@ -92,13 +92,16 @@ public class SchemaGenerator {
         if (paramType.isEnum()) {
             schema = generateEnumSchema(paramType, paramAnnotation.enumValues());
         }
+        // Check if the parameter type is an array
+        else if (paramType.isArray()) {
+            schema = generateTypeSchema(paramType);
+        }
         // Check if the parameter type is a complex type (Record, POJO, etc.)
         else if (isRecordType(paramType) ||
                 (!paramType.isPrimitive() &&
                         !paramType.equals(String.class) &&
                         !Number.class.isAssignableFrom(paramType) &&
                         !paramType.equals(Boolean.class) &&
-                        !paramType.isArray() &&
                         !Collection.class.isAssignableFrom(paramType))) {
             // Complex object type - use full schema generation
             schema = generateTypeSchema(paramType);
@@ -297,6 +300,7 @@ public class SchemaGenerator {
 
         Map<String, Object> properties = new LinkedHashMap<>();
         List<String> required = new ArrayList<>();
+        Set<String> requiredSet = new LinkedHashSet<>(); // Use Set to avoid duplicates
 
         try {
             // Get record components (fields)
@@ -314,7 +318,7 @@ public class SchemaGenerator {
                 if (resultAnnotation != null) {
                     applyOutputAnnotations(fieldSchema, resultAnnotation);
                     if (resultAnnotation.required()) {
-                        required.add(fieldName);
+                        requiredSet.add(fieldName);
                     }
                     // Use custom name if provided
                     if (!resultAnnotation.name().isEmpty()) {
@@ -327,7 +331,7 @@ public class SchemaGenerator {
                 if (paramAnnotation != null) {
                     applyInputAnnotations(fieldSchema, paramAnnotation);
                     if (paramAnnotation.required()) {
-                        required.add(fieldName);
+                        requiredSet.add(fieldName);
                     }
                     // Use custom name if provided
                     if (!paramAnnotation.name().isEmpty()) {
@@ -343,7 +347,8 @@ public class SchemaGenerator {
         }
 
         schema.put("properties", properties);
-        if (!required.isEmpty()) {
+        if (!requiredSet.isEmpty()) {
+            required.addAll(requiredSet);
             schema.put("required", required);
         }
 
