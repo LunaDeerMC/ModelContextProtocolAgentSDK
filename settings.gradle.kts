@@ -1,1 +1,1 @@
-rootProject.name = "ModelContextProtocolAgentSDK"
+rootProject.name = "MinecraftContextProtocolServerSDK"
